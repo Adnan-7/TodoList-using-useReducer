@@ -25,7 +25,7 @@ const App = () => {
     dispatch({ type: 'CLOSE_MODAL' });
   };
   return (
-    <>
+    <div className='container'>
       {state.isModalOpen && (
         <Modal closeModal={closeModal} modalContent={state.modalContent} />
       )}
@@ -52,7 +52,7 @@ const App = () => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
