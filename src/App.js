@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useState, useReducer } from 'react';
+import Modal from './Modal';
+import { data } from './data';
+import { reducer } from './Reducer';
+
+const initialState = {
+  item: data,
+  isModalOpen: false,
+  modalContent: 'Item added',
+};
 
 function App() {
-  return <div>App component</div>;
+  const [item, setItem] = useState('');
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (item) {
+      const newItem = { id: new Date().getTime().toString(), item };
+      dispatch({ type: 'ADD_ITEM', payload: newItem });
+      setItem('');
+    }
+  };
+  return (
+    <section className='container'>
+      {state.isModalOpen && <Modal />}
+      <form onSubmit={handleSubmit} className='form'>
+        <div>
+          <input
+            type='text'
+            value={item}
+            onChange={(e) => setItem(e.target.value)}
+          />
+        </div>
+        <button type='submit'>Add</button>
+      </form>
+    </section>
+  );
 }
 
 export default App;
