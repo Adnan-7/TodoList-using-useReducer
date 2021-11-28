@@ -17,7 +17,7 @@ function App() {
     e.preventDefault();
     if (item) {
       const newItem = { id: new Date().getTime().toString(), item };
-      console.log(newItem);
+
       dispatch({ type: 'ADD_ITEM', payload: newItem });
       setItem('');
     } else {
@@ -30,11 +30,11 @@ function App() {
   };
 
   return (
-    <section className='container'>
+    <div className='container'>
       {state.isModalOpen && (
         <Modal modalContent={state.modalContent} closeModal={closeModal} />
       )}
-      <form onSubmit={handleSubmit} className='form'>
+      <form className='form'>
         <div>
           <input
             type='text'
@@ -42,17 +42,23 @@ function App() {
             onChange={(e) => setItem(e.target.value)}
           />
         </div>
-        <button type='submit'>Add</button>
+        <button type='submit' onClick={handleSubmit}>
+          Add
+        </button>
       </form>
+
       {state.item.map((piece) => {
         return (
           <div key={piece.id} className='item'>
             <h4>{piece.name}</h4>
-            <button>remove</button>
+            <button
+              onClick={dispatch({ type: 'REMOVE_ITEM', payload: piece.id })}>
+              remove
+            </button>
           </div>
         );
       })}
-    </section>
+    </div>
   );
 }
 
