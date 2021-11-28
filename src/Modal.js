@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const Modal = () => {
+const Modal = ({ modalContent, closeModal }) => {
+  useEffect(() => {
+    setInterval(() => {
+      closeModal();
+    }, 3000);
+  });
   return (
-    <>
-      <p className='modal'>modal</p>
-    </>
+    <div className='modal'>
+      <p>{modalContent}</p>
+    </div>
   );
 };
 

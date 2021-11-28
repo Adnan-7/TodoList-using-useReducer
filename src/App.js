@@ -4,9 +4,9 @@ import { data } from './data';
 import { reducer } from './Reducer';
 
 const initialState = {
-  item: data,
+  item: [],
   isModalOpen: false,
-  modalContent: 'Item added',
+  modalContent: '',
 };
 
 function App() {
@@ -17,13 +17,23 @@ function App() {
     e.preventDefault();
     if (item) {
       const newItem = { id: new Date().getTime().toString(), item };
+      console.log(newItem);
       dispatch({ type: 'ADD_ITEM', payload: newItem });
       setItem('');
+    } else {
+      dispatch({ type: 'NO_VALUE' });
     }
   };
+
+  const closeModal = () => {
+    dispatch({ type: 'CLOSE_MODAL' });
+  };
+
   return (
     <section className='container'>
-      {state.isModalOpen && <Modal />}
+      {state.isModalOpen && (
+        <Modal modalContent={state.modalContent} closeModal={closeModal} />
+      )}
       <form onSubmit={handleSubmit} className='form'>
         <div>
           <input
@@ -35,10 +45,9 @@ function App() {
         <button type='submit'>Add</button>
       </form>
       {state.item.map((piece) => {
-        const { id, name } = piece;
         return (
-          <div key={id} className='item'>
-            <h4>{name}</h4>
+          <div key={piece.id} className='item'>
+            <h4>{piece.name}</h4>
             <button>remove</button>
           </div>
         );
