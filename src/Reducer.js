@@ -1,34 +1,24 @@
 export const reducer = (state, action) => {
   if (action.type === 'ADD_ITEM') {
-    const newItems = [...state.item, action.payload];
+    const newPeople = [...state.people, action.payload];
     return {
       ...state,
-      item: newItems,
+      people: newPeople,
       isModalOpen: true,
       modalContent: 'item added',
     };
   }
-
   if (action.type === 'NO_VALUE') {
-    return {
-      ...state,
-      isModalOpen: true,
-      modalContent: 'please enter value',
-    };
+    return { ...state, isModalOpen: true, modalContent: 'please enter value' };
   }
-
   if (action.type === 'CLOSE_MODAL') {
     return { ...state, isModalOpen: false };
   }
-
   if (action.type === 'REMOVE_ITEM') {
-    const newItems = state.item.filter((piece) => piece.id !== action.payload);
-
-    return {
-      ...state,
-      item: newItems,
-    };
+    const newPeople = state.people.filter(
+      (person) => person.id !== action.payload
+    );
+    return { ...state, people: newPeople };
   }
-
-  throw new Error('no mathing action type');
+  throw new Error('no matching action type');
 };
