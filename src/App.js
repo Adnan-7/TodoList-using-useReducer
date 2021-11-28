@@ -34,6 +34,15 @@ function App() {
         </div>
         <button type='submit'>Add</button>
       </form>
+      {state.item.map((piece) => {
+        const { id, name } = piece;
+        return (
+          <div key={id} className='item'>
+            <h4>{name}</h4>
+            <button>remove</button>
+          </div>
+        );
+      })}
     </section>
   );
 }
